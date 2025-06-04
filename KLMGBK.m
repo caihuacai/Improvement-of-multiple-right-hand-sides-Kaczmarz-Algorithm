@@ -1,13 +1,13 @@
-%ÁĞ²Ğ²î×î´óĞĞ+A :K-means
-%Ö»Ñ¡ÔñÒ»ÁĞ²Ğ²î×î´óĞĞ+k-means
+%åˆ—æ®‹å·®æœ€å¤§è¡Œ+A :K-means
+%åªé€‰æ‹©ä¸€åˆ—æ®‹å·®æœ€å¤§è¡Œ+k-means
 
 %function [x,s,pre,ssimValue,error,time,psnrValue] = new1(A,B,x,x0,tol,h,k_fenlei,kb,maxit)
 function [s] = new1(A,B,x,x0,tol,h,k_fenlei,kb,maxit)
 [m,n]=size(A);
 idx = new_set(A,k_fenlei);
 uniqueValues = unique(idx);
-% ³õÊ¼»¯Ôª°ûÊı×é
- % ±éÀúÎ¨Ò»Öµ£¬²¢½«ÏàÍ¬ÖµµÄË÷Òı´æ·ÅÔÚÔª°ûÊı×éÖĞ
+% åˆå§‹åŒ–å…ƒèƒæ•°ç»„
+ % éå†å”¯ä¸€å€¼ï¼Œå¹¶å°†ç›¸åŒå€¼çš„ç´¢å¼•å­˜æ”¾åœ¨å…ƒèƒæ•°ç»„ä¸­
 for i = 1:numel(uniqueValues)
     indexCellArray{i} = find(idx == uniqueValues(i));
 end
@@ -16,22 +16,22 @@ end
 
 ta=clock;
 
-a=(sum(A.^2,2)).^(1/2);%¼ÆËãÏµÊı¾ØÕóAÃ¿ĞĞµÄ¶ş·¶Êı
+a=(sum(A.^2,2)).^(1/2);%è®¡ç®—ç³»æ•°çŸ©é˜µAæ¯è¡Œçš„äºŒèŒƒæ•°
 
 res=1;
 iter=0;
 while res>=tol&&iter<=maxit
     tic
-    % ±éÀúÔª°ûÊı×é£¬Ëæ»úÑ¡ÔñÒ»¸öÖµ
+    % éå†å…ƒèƒæ•°ç»„ï¼Œéšæœºé€‰æ‹©ä¸€ä¸ªå€¼
 for i = 1:numel(indexCellArray)
-    % Èç¹ûµ±Ç°Ôª°ûÊı×é·Ç¿Õ£¬ÔòËæ»úÑ¡ÔñÒ»¸öÖµ
+    % å¦‚æœå½“å‰å…ƒèƒæ•°ç»„éç©ºï¼Œåˆ™éšæœºé€‰æ‹©ä¸€ä¸ªå€¼
     if ~isempty(indexCellArray{i})
         selectedIndex = randi(length(indexCellArray{i}));
         ik(i) = indexCellArray{i}(selectedIndex);
     end
 end 
-    g =abs(B -A*x0);%Çó²Ğ²î
-    [sorted_sums, top_three_indices] = maxk(sum(g, 1), 1);%ÕÒÁĞ·¶Êı×î´óµÄÈıÁĞ
+    g =abs(B -A*x0);%æ±‚æ®‹å·®
+    [sorted_sums, top_three_indices] = maxk(sum(g, 1), 1);%æ‰¾åˆ—èŒƒæ•°æœ€å¤§çš„ä¸‰åˆ—
 %     col1= g(:,top_three_indices(1));
 %     col2 = g(:,top_three_indices(2));
 %     col3 = g(:,top_three_indices(3));
@@ -39,13 +39,13 @@ end
     [~, top_three_indices_1] = maxk(g(:,top_three_indices(1)), h);
 %     [~, top_three_indices_2] = maxk(g(:,top_three_indices(1)), xuanzegeshu);
 %     [~, top_three_indices_3] = maxk(g(:,top_three_indices(1)),
-%     xuanzegeshu);%¶àĞĞÑ¡ÔñµÄÊÇÏàÍ¬ËùÓĞÒ»ĞĞ
+%     xuanzegeshu);%å¤šè¡Œé€‰æ‹©çš„æ˜¯ç›¸åŒæ‰€æœ‰ä¸€è¡Œ
 %     index = top_three_indices_1(ismember(top_three_indices_1, top_three_indices_2) & ismember(top_three_indices_1, top_three_indices_3));
-%     [sortedVector,index1] = sort(g, 'descend');%Ã¿Ò»ÁĞ½øĞĞÅÅĞò£¬½µĞò
-%    index = index1(1:100);  %Ñ¡È¡Ã¿Ò»ÁĞµÄ×î´óÖµ½øĞĞ¸üĞÂ
-    index = unique([ik'; top_three_indices_1]);%²¢¼¯
-    %index = intersect(ik, top_three_indices_1);%½»¼¯
-    Ak=A(index,:);%½«Ö¸±ê¹¹³É¿é½øĞĞµü´ú
+%     [sortedVector,index1] = sort(g, 'descend');%æ¯ä¸€åˆ—è¿›è¡Œæ’åºï¼Œé™åº
+%    index = index1(1:100);  %é€‰å–æ¯ä¸€åˆ—çš„æœ€å¤§å€¼è¿›è¡Œæ›´æ–°
+    index = unique([ik'; top_three_indices_1]);%å¹¶é›†
+    %index = intersect(ik, top_three_indices_1);%äº¤é›†
+    Ak=A(index,:);%å°†æŒ‡æ ‡æ„æˆå—è¿›è¡Œè¿­ä»£
     Bk=B(index,:);
     iter=iter+1;
     ak=(sum(Ak.^2,2));
@@ -53,7 +53,7 @@ end
 %     C=(Bk-Ak*x0)./repmat(ak,1, size(Ak,2));
 %     z = (1/h)*Ak'* C ;
 %     a4 = Ak';
-%     x0=x0+z;%Æ½¾ù¿éµÄ¸üĞÂ£¬x=x+ÇóºÍ£¨w(bi-ai*x/f:ai)£©
+%     x0=x0+z;%å¹³å‡å—çš„æ›´æ–°ï¼Œx=x+æ±‚å’Œï¼ˆw(bi-ai*x/f:ai)ï¼‰
     C = Bk-Ak*x0;
     [U, S, V] = svd(Ak);
     S_plus = zeros(size(S));
@@ -61,7 +61,7 @@ for i = 1:rank(Ak)
     S_plus(i,i) = 1/S(i,i);
 end
 
-    % ¼ÆËãÎ±Äæ
+    % è®¡ç®—ä¼ªé€†
     A_plus = V * S_plus' * U';
     x0 = x0 + A_plus*C;
  time(:,iter) = toc;
@@ -75,13 +75,13 @@ end
     
          errors_matrix = (x - x0).^2;
 
-        % ¼ÆËãÔ­Ê¼Êı¾İ¾ØÕóµÄ·½²î
+        % è®¡ç®—åŸå§‹æ•°æ®çŸ©é˜µçš„æ–¹å·®
         original_variance = var(x(:));
         original_variance =original_variance.^2;
-        % ¼ÆËãÎó²î¾ØÕóµÄ·½²î
+        % è®¡ç®—è¯¯å·®çŸ©é˜µçš„æ–¹å·®
         errors_variance = var(errors_matrix(:));
        
-        % ¼ÆËã¹éÒ»»¯·½²î
+        % è®¡ç®—å½’ä¸€åŒ–æ–¹å·®
         facha = (sum(errors_variance) / sum(original_variance))^(0.5);
         pre(:,iter) = facha;
         ssimValue(:,iter) = ssim(x, x0);
@@ -90,20 +90,20 @@ end
         error(:,iter)= res;
        
 %     threshold = 1e-5;*
-%     index_set = find(max(A, [], 1) < threshold);%Ñ¡ÔñÃ¿ÁĞ²Ğ²î×î´óÖµĞ¡ÓÚÄ³ÖµµÄÁĞË÷Òı
+%     index_set = find(max(A, [], 1) < threshold);%é€‰æ‹©æ¯åˆ—æ®‹å·®æœ€å¤§å€¼å°äºæŸå€¼çš„åˆ—ç´¢å¼•
 end
  tb=clock;
 cup=etime(tb,ta);
 % x_uint8 = uint8(x0);
-% figure; % ´´½¨Ò»¸öĞÂµÄÍ¼ĞÎ´°¿Ú
+% figure; % åˆ›å»ºä¸€ä¸ªæ–°çš„å›¾å½¢çª—å£
 % 
-% subplot(1, 2, 1); % ´´½¨µÚÒ»¸ö×ÓÍ¼£¬Õ¼Ò»ĞĞÁ½ÁĞ£¬ÔÚµÚÒ»ÁĞ
+% subplot(1, 2, 1); % åˆ›å»ºç¬¬ä¸€ä¸ªå­å›¾ï¼Œå ä¸€è¡Œä¸¤åˆ—ï¼Œåœ¨ç¬¬ä¸€åˆ—
 % imshow(img);
-% title('Ô­Í¼');
+% title('åŸå›¾');
 % 
-% subplot(1, 2, 2); % ´´½¨µÚ¶ş¸ö×ÓÍ¼£¬ÔÚµÚ¶şÁĞ
+% subplot(1, 2, 2); % åˆ›å»ºç¬¬äºŒä¸ªå­å›¾ï¼Œåœ¨ç¬¬äºŒåˆ—
 % imshow(x_uint8);
-% title('ÖØ½¨ºó');
+% title('é‡å»ºå');
 s(:,1)=cup;
 s(:,2)=iter;
 % s(:,3)=res;
@@ -118,17 +118,17 @@ for i = 1:length(uniqueFirstValues)
     index = find(normalizedA(:, 1) == uniqueFirstValues(i), 1);
     selectedRows = [selectedRows; A(index, :)];
     if size(selectedRows, 1) >= k_fenlei
-        break; % µ±ÕÒµ½Ê®ĞĞÊ±ÍË³öÑ­»·
+        break; % å½“æ‰¾åˆ°åè¡Œæ—¶é€€å‡ºå¾ªç¯
     end
 end
-% Ê¹ÓÃ selectedRows ×÷Îª³õÊ¼ÖĞĞÄ
+% ä½¿ç”¨ selectedRows ä½œä¸ºåˆå§‹ä¸­å¿ƒ
 selectedRows = full(selectedRows);
 
 [idx, centers] = kmeans(A, k_fenlei, 'Start', selectedRows,'MaxIter',50);
 
-% ÏÔÊ¾½á¹û
-% disp('K-means ¾ÛÀà½á¹û:');
+% æ˜¾ç¤ºç»“æœ
+% disp('K-means èšç±»ç»“æœ:');
 % disp(idx);
-% disp('¾ÛÀàÖĞĞÄ:');
+% disp('èšç±»ä¸­å¿ƒ:');
 % disp(centers);
 end
