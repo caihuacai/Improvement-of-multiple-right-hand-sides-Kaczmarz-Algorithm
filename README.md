@@ -1,1 +1,3 @@
-Upon acceptance and publication of the paper “Enhanced Convergence and Noise Robustness of the Kaczmarz Algorithm for Solving Multiple Right-hand Side Linear Systems” in the journal “The Visual Computer”, we will publicly release the complete code.
+KLMGBK: Algorithm 1 in "Accelerated Kaczmarz Method with Diverse Index Selection for Multi-RHS Linear Systems in CT Reconstruction".
+KMGBK:Algorithm 2 in "Accelerated Kaczmarz Method with Diverse Index Selection for Multi-RHS Linear Systems in CT Reconstruction".
+other:Used to construct a sheep model and generate data
